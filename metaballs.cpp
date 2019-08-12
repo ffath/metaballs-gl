@@ -1,5 +1,6 @@
 #include "metaballs.h"
 
+#include <QOpenGLFunctions>
 #include <QDebug>
 
 
@@ -27,6 +28,7 @@ void Metaballs::initializeGL()
 
 void Metaballs::paintGL()
 {
+    static QOpenGLFunctions *f = QOpenGLContext::currentContext()->functions();
     QSize s = size();
     GLfloat w = static_cast<GLfloat>(s.width());
     GLfloat h = static_cast<GLfloat>(s.height());
@@ -70,7 +72,7 @@ void Metaballs::paintGL()
     m_shaderProgram->setUniformValue(colorLocation, color);
     m_shaderProgram->setUniformValue(sizeLocation, s);
 
-    glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+    f->glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
 
     m_shaderProgram->disableAttributeArray(vertexLocation);
     m_shaderProgram->disableAttributeArray(vertexColorLocation);
