@@ -18,31 +18,8 @@ void Metaballs::initializeGL()
     qDebug() << __func__;
 
     m_shaderProgram = new QOpenGLShaderProgram();
-
-    m_shaderProgram->addShaderFromSourceCode(QOpenGLShader::Vertex,
-        "attribute highp vec4 vertex;\n"
-        "attribute highp vec4 vertexColor;\n"
-        "uniform highp mat4 matrix;\n"
-        "varying mediump vec4 fragmentColor;\n"
-        "void main(void)\n"
-        "{\n"
-        "   gl_Position = matrix * vertex;\n"
-        "   fragmentColor = vertexColor;\n"
-        "//   fragmentColor = gl_Position;\n"
-        "}");
-    m_shaderProgram->addShaderFromSourceCode(QOpenGLShader::Fragment,
-        "uniform mediump vec4 color;\n"
-        "uniform mediump vec2 size;\n"
-        "varying mediump vec4 fragmentColor;\n"
-        "void main(void)\n"
-        "{\n"
-        "   gl_FragColor = fragmentColor;\n"
-        "//   gl_FragColor = color;\n"
-        "//   gl_FragColor.x = 1.0;\n"
-        "//   gl_FragColor.y = gl_FragCoord.x / size.x;\n"
-        "//   gl_FragColor.z = 0.0;\n"
-        "//   gl_FragColor.w = 1.0;\n"
-        "}");
+    m_shaderProgram->addShaderFromSourceFile(QOpenGLShader::Vertex, ":/vertex.glsl");
+    m_shaderProgram->addShaderFromSourceFile(QOpenGLShader::Fragment, ":/fragment.glsl");
     m_shaderProgram->link();
     m_shaderProgram->bind();
 
